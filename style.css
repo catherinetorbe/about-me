@@ -149,7 +149,7 @@ body {
 }
 
 .project-card img {
-  width: 100%;
+  width: 90vh;
   object-fit: cover;
 }
 
