@@ -32,37 +32,39 @@ gallery.innerHTML = projects
   )
   .join("");
 
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("feedback-form");
-  const list = document.getElementById("feedback-list");
+const WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbzYy9gPEjSoRQmLylnW03B-_nRNjoY3ZoqEyBue9hV98XeB7Ci885uzSGt-cSEBqVUc/exec";
 
-  function renderFeedback() {
-    const feedbacks = JSON.parse(localStorage.getItem("feedbacks") || "[]");
-    list.innerHTML = feedbacks
-      .map(
-        (f) => `
-        <div class="feedback-item">
-          <strong>${f.name}</strong> <span>(${f.email})</span>
-          <p>${f.message}</p>
-        </div>
-      `
-      )
-      .join("");
-  }
+function renderFeedback() {
+  fetch(WEB_APP_URL)
+    .then((res) => res.json())
+    .then((feedbacks) => {
+      list.innerHTML = feedbacks
+        .map(
+          (f) => `
+          <div class="feedback-item">
+            <strong>${f.name}</strong> <span>(${f.email})</span>
+            <p>${f.message}</p>
+          </div>
+        `
+        )
+        .join("");
+    });
+}
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const message = form.message.value.trim();
-    if (name && email && message) {
-      const feedbacks = JSON.parse(localStorage.getItem("feedbacks") || "[]");
-      feedbacks.unshift({ name, email, message });
-      localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const message = form.message.value.trim();
+  if (name && email && message) {
+    fetch(WEB_APP_URL, {
+      method: "POST",
+      body: JSON.stringify({ name, email, message }),
+      headers: { "Content-Type": "application/json" },
+    }).then(() => {
       form.reset();
       renderFeedback();
-    }
-  });
-
-  renderFeedback();
+    });
+  }
 });
