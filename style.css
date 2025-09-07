@@ -302,6 +302,75 @@ body {
   color: #fff;
 }
 
+.feedback {
+  background: #f7faff;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(79, 140, 255, 0.07);
+  padding: 28px 22px;
+  margin-top: 32px;
+}
+
+.feedback h2 {
+  color: #4f8cff;
+  margin-bottom: 16px;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #e0eafc;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.feedback-form button {
+  background: #4f8cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.feedback-form button:hover {
+  background: #2563eb;
+}
+
+.feedback-list {
+  margin-bottom: 24px;
+}
+
+.feedback-item {
+  background: #e0eafc;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(79, 140, 255, 0.08);
+}
+
+.feedback-item strong {
+  color: #2563eb;
+}
+
+.feedback-item span {
+  color: #4f8cff;
+  font-size: 0.95em;
+  margin-left: 6px;
+}
+
+.feedback-item p {
+  margin: 8px 0 0 0;
+  color: #333;
+}
+
 @media (max-width: 700px) {
   .container {
     display: flex;

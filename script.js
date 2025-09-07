@@ -31,3 +31,38 @@ gallery.innerHTML = projects
 `
   )
   .join("");
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("feedback-form");
+  const list = document.getElementById("feedback-list");
+
+  function renderFeedback() {
+    const feedbacks = JSON.parse(localStorage.getItem("feedbacks") || "[]");
+    list.innerHTML = feedbacks
+      .map(
+        (f) => `
+        <div class="feedback-item">
+          <strong>${f.name}</strong> <span>(${f.email})</span>
+          <p>${f.message}</p>
+        </div>
+      `
+      )
+      .join("");
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+    if (name && email && message) {
+      const feedbacks = JSON.parse(localStorage.getItem("feedbacks") || "[]");
+      feedbacks.unshift({ name, email, message });
+      localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+      form.reset();
+      renderFeedback();
+    }
+  });
+
+  renderFeedback();
+});
